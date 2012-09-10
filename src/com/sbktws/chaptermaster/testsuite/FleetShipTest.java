@@ -34,5 +34,17 @@ public class FleetShipTest {
 
 		Assert.assertSame((Object) data[0], (Object) testShips[0]);
 		Assert.assertSame((Object) f, (Object) testShips[0].GetAssigned());
+		
+		f = new Fleet(2);
+		f.Push(testShips[0], testShips[1]);
+
+		f.Remove(testShips[0]);
+		
+		data = f.GetShips();
+		Assert.assertSame((Object) data[0], (Object) testShips[1]);
+		Assert.assertSame((Object) f, (Object) testShips[1].GetAssigned());
+		
+		Assert.assertSame((Object) null, (Object) testShips[0].GetAssigned());
+		Assert.assertEquals(1, f.GetSize());
 	}
 }

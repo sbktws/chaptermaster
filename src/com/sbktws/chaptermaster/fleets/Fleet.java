@@ -31,12 +31,9 @@ public class Fleet {
 	public Ship[] GetShips() {
 		return data;
 	}
-
-	public void Push(Ship s) {
-		assert (currentSize < data.length - 1) : "Too many ships added to fleet!";
-
-		data[currentSize] = s;
-		currentSize++;
+	
+	public int GetSize() {
+		return currentSize;
 	}
 
 	public void Push(Ship... s) {
@@ -46,6 +43,26 @@ public class Fleet {
 			data[currentSize] = ship;
 			ship.AssignTo(this);
 			currentSize++;
+		}
+	}
+	
+	
+	/**
+	 * Does not preserve list order.
+	 * @param s A list of ships to remove.
+	 */
+	public void Remove (Ship... s) {
+		assert (currentSize - s.length < data.length - 1) : "Too many ships added to fleet!";
+
+		for (Ship ship : s) {
+			for (int i = 0; i < currentSize; i++) {
+				if (data[i] == ship) {
+					data[i] = data[currentSize-1];
+					ship.AssignTo(null);
+					currentSize--;
+					break;
+				}
+			}
 		}
 	}
 }
