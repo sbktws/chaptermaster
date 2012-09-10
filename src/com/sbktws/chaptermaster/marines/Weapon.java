@@ -18,7 +18,7 @@ public enum Weapon {
 	MISSILE_LAUNCHER_FRAG(4,6,3,"Missile Launcher (frag)"),
 	PLASMA_PISTOL(6,2,1,"Plasma Pistol"),
 	PLASMA_GUN(7,2,1,"Plasma Gun"),
-	PLASMA_CANNON(7,2,3,"Plasma Cannon", true),
+	PLASMA_CANNON(7,2,3,"Plasma Cannon"),
 	CHAINSWORD(4,7,1,"Chainsword", false),
 	POWER_WEAPON(4,1,1,"Power Weapon", false),
 	POWER_FIST(8,3,1,"Power Fist", false),
