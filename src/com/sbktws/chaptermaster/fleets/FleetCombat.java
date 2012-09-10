@@ -9,6 +9,9 @@ public class FleetCombat {
 
 	public Fleet attacker;
 	public Fleet defender;
+	
+	private Integer killOrder = 1;
+	private Integer turn = 0;
 
 	private HashMap<Ship, Ship> targeting;
 
@@ -29,27 +32,43 @@ public class FleetCombat {
 	}
 
 	public void DoBattle() {
+		int dstart = defender.GetSize(), astart = attacker.GetSize();
+		
 		while (attacker.GetSize() > 0 && defender.GetSize() > 0) {
-			for (Ship s2 : defender.GetShips()) {
-				Attack (s2, targeting.get(s2), false);
-			}
+			++turn;
 			
+			for (Ship s2 : defender.GetShips()) {
+				if (s2 != null) {
+					s2.ResetShields();
+					targeting.put(s2, Attack(s2, targeting.get(s2), false));
+				}
+			}
+
 			for (Ship s1 : attacker.GetShips()) {
-				Attack (s1, targeting.get(s1), true);
+				if (s1 != null) {
+					s1.ResetShields();
+					targeting.put(s1, Attack(s1, targeting.get(s1), true));
+				}
 			}
 		}
+		
+		dstart -= defender.GetSize();
+		astart -= attacker.GetSize();
+		boolean defenderWon = (defender.GetSize() != 0);
+		System.out.println("Battle Report: Attacker lost " + astart + "/" + attacker.GetShips().length + " ships, defender lost " + dstart + "/" + defender.GetShips().length + " ships.");
+		System.out.println("Battle Report: The " + (defenderWon ? "defenders" : "attackers") + " won.");
 	}
 
-	private Ship ChooseTarget(Ship shooter, boolean isAttacker) {		
+	private Ship ChooseTarget(Ship shooter, boolean isAttacker) {
 		if (isAttacker) {
-			return defender.GetShips()[r.nextInt(defender.GetSize())];
+			return defender.GetSize() > 0 ? defender.GetShips()[r.nextInt(defender.GetSize())] : null;
 		} else {
-			return attacker.GetShips()[r.nextInt(attacker.GetSize())];
+			return attacker.GetSize() > 0 ? attacker.GetShips()[r.nextInt(attacker.GetSize())] : null;
 		}
 	}
 
 	private Ship Attack(Ship shooter, Ship target, boolean isAttacker) {
-		
+
 		for (ShipWeapon w : shooter.weapons) {
 			if (target == null) {
 				target = ChooseTarget(shooter, isAttacker);
@@ -57,7 +76,7 @@ public class FleetCombat {
 			if (target == null) {
 				return null;
 			}
-			
+
 			for (int i = 0; i < w.shots; i++) {
 				if (r.nextInt(7) + 1 >= shooter.data.accuracy) {
 					if (w.penetration <= target.data.armour || r.nextInt(7) + 1 >= shooter.data.armour) {
@@ -65,13 +84,14 @@ public class FleetCombat {
 							--target.currentShields;
 						} else {
 							--target.currentHull;
-							
+
 							if (target.currentHull == 0) {
-								System.out.println("A ship was destroyed!");
-								
+								System.out.println("A ship of type " + target.data.toString() + " was destroyed! (Kill " + this.killOrder.toString() + " on turn " + this.turn.toString() + ")");
+								++killOrder;
+
 								target.GetAssigned().Remove(target);
 								target = null;
-								
+
 								break;
 							}
 						}

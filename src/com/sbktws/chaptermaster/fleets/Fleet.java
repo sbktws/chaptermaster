@@ -58,6 +58,7 @@ public class Fleet {
 			for (int i = 0; i < currentSize; i++) {
 				if (data[i] == ship) {
 					data[i] = data[currentSize-1];
+					data[currentSize-1] = null;
 					ship.AssignTo(null);
 					currentSize--;
 					break;

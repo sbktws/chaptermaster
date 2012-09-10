@@ -6,7 +6,6 @@ import org.junit.Test;
 import com.sbktws.chaptermaster.fleets.Fleet;
 import com.sbktws.chaptermaster.fleets.Ship;
 import com.sbktws.chaptermaster.fleets.ShipData;
-import com.sbktws.chaptermaster.fleets.ShipType;
 
 /**
  * @author James
@@ -18,8 +17,8 @@ public class FleetShipTest {
 
 	@Test
 	public void testResize() {
-		testShips[0] = new Ship(ShipType.MARINE_BATTLE_BARGE, ShipData.MARINE_BATTLE_BARGE);
-		testShips[1] = new Ship(ShipType.MARINE_STRIKE_CRUISER, ShipData.MARINE_BATTLE_BARGE);
+		testShips[0] = new Ship(ShipData.MARINE_BATTLE_BARGE);
+		testShips[1] = new Ship(ShipData.MARINE_BATTLE_BARGE);
 
 		Fleet f = new Fleet(2);
 		f.Push(testShips[0], testShips[1]);

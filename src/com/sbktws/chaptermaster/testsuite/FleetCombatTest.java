@@ -1,33 +1,47 @@
 package com.sbktws.chaptermaster.testsuite;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import com.sbktws.chaptermaster.fleets.Fleet;
+import com.sbktws.chaptermaster.fleets.FleetCombat;
 import com.sbktws.chaptermaster.fleets.Ship;
 import com.sbktws.chaptermaster.fleets.ShipData;
-import com.sbktws.chaptermaster.fleets.ShipType;
 import com.sbktws.chaptermaster.fleets.ShipWeapon;
 
 public class FleetCombatTest {
-
+	
 	@Test
-	public void TestFleetCombat() {
+	public void Test5FleetCombats() {
+		for (int i = 1; i <= 5; ++i) {
+			TestFleetCombat(i);
+			System.out.println("~~~~~~~~~~~~~~~~~~");
+		}
+	}
+	
+	public void TestFleetCombat(int defenderSize) {
 
-		Fleet attacker = new Fleet(1), defender = new Fleet(3);
+		Fleet attacker = new Fleet(1), defender = new Fleet(defenderSize);
 
-		attacker.Push(new Ship(ShipType.MARINE_BATTLE_BARGE, ShipData.MARINE_BATTLE_BARGE));
-		defender.Push(new Ship(ShipType.MARINE_STRIKE_CRUISER, ShipData.MARINE_STRIKE_CRUISER), new Ship(ShipType.MARINE_STRIKE_CRUISER, ShipData.MARINE_STRIKE_CRUISER), new Ship(ShipType.MARINE_STRIKE_CRUISER, ShipData.MARINE_STRIKE_CRUISER));
+		attacker.Push(new Ship(ShipData.MARINE_BATTLE_BARGE));
 
-		attacker.GetShips()[0].weapons[0] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
-		attacker.GetShips()[0].weapons[1] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
-		attacker.GetShips()[0].weapons[2] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
-		
-		for (Ship s : defender.GetShips()) {
-			
+		for (int i = 0; i < defenderSize; ++i) {
+			defender.Push(new Ship(ShipData.MARINE_STRIKE_CRUISER));
 		}
 
+		for (Ship s : attacker.GetShips()) {
+			for (int i = 0; i < s.weapons.length; ++i) {
+				s.weapons[i] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
+			}
+		}
+		
+		for (Ship s : defender.GetShips()) {
+			for (int i = 0; i < s.weapons.length; ++i) {
+				s.weapons[i] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
+			}
+		}
+
+		FleetCombat fc = new FleetCombat(attacker, defender);
+		fc.DoBattle();
 	}
 
 }
