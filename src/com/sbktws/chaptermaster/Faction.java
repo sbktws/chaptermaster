@@ -1,9 +1,16 @@
 package com.sbktws.chaptermaster;
 
-public class Faction {
+import java.awt.Color;
 
-	public Faction() {
-		// TODO Auto-generated constructor stub
+public enum Faction {
+
+	SPACE_MARINE(new Color(50, 255, 50)),
+	IMPERIAL(new Color(255, 255, 0));
+
+	public Color rgb;
+
+	Faction(Color drawColour) {
+		rgb = drawColour;
 	}
 
 }

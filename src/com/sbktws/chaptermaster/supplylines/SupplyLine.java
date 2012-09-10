@@ -16,7 +16,7 @@ public class SupplyLine {
 	public SupplyPoint next() {
 		int pos = current;
 		// Set current to 0 if it is already at max; else, increment.
-		current = (current+1 == waypoints.length) ? 0 : current+1;
+		current = (current + 1 == waypoints.length) ? 0 : current + 1;
 		return waypoints[pos];
 	}
 }

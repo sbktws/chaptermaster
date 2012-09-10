@@ -28,7 +28,7 @@ public class SupplyPoint {
 
 		commands[current] = new SupplyCommand();
 		commands[current].command = command;
-		
+
 		++current;
 		return true;
 	}
@@ -36,32 +36,29 @@ public class SupplyPoint {
 	public boolean addCommand(SupplyLineCommand command, int amount) {
 		assert (command == SupplyLineCommand.FILLY || command == SupplyLineCommand.EMPTYY);
 
-		
 		commands[current] = new SupplyCommand();
 		commands[current].command = command;
 		commands[current].amount = amount;
-		
+
 		++current;
 		return true;
 	}
 
-	public boolean addCommand(SupplyLineCommand command, Resource res,
-			int amount) {
+	public boolean addCommand(SupplyLineCommand command, Resource res, int amount) {
 		assert (command == SupplyLineCommand.LOADXY || command == SupplyLineCommand.DROPXY);
 
 		commands[current] = new SupplyCommand();
 		commands[current].command = command;
 		commands[current].amount = amount;
 		commands[current].res = res;
-		
+
 		++current;
 		return true;
 	}
 
 	/**
 	 * @param transfer
-	 *            A list of two Inventories. The first should be the cargo ship
-	 *            and the second the dock/planet.
+	 *            A list of two Inventories. The first should be the cargo ship and the second the dock/planet.
 	 */
 	public Inventory activate(Inventory transfer) {
 		for (SupplyCommand sc : commands) {
