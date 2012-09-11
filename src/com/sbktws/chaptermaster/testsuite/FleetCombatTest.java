@@ -6,7 +6,6 @@ import com.sbktws.chaptermaster.fleets.Fleet;
 import com.sbktws.chaptermaster.fleets.FleetCombat;
 import com.sbktws.chaptermaster.fleets.Ship;
 import com.sbktws.chaptermaster.fleets.ShipData;
-import com.sbktws.chaptermaster.fleets.ShipWeapon;
 
 public class FleetCombatTest {
 	
@@ -14,6 +13,11 @@ public class FleetCombatTest {
 	public void Test5FleetCombats() {
 		for (int i = 1; i <= 5; ++i) {
 			TestFleetCombat(i);
+			System.out.println("~~~~~~~~~~~~~~~~~~");
+		}
+		
+		for (int i = 10; i <= 15; ++i) {
+			TestFortressMonasteryCombat(i);
 			System.out.println("~~~~~~~~~~~~~~~~~~");
 		}
 	}
@@ -28,16 +32,18 @@ public class FleetCombatTest {
 			defender.Push(new Ship(ShipData.MARINE_STRIKE_CRUISER));
 		}
 
-		for (Ship s : attacker.GetShips()) {
-			for (int i = 0; i < s.weapons.length; ++i) {
-				s.weapons[i] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
-			}
-		}
-		
-		for (Ship s : defender.GetShips()) {
-			for (int i = 0; i < s.weapons.length; ++i) {
-				s.weapons[i] = ShipWeapon.MARINE_BOMBARDMENT_CANNON;
-			}
+		FleetCombat fc = new FleetCombat(attacker, defender);
+		fc.DoBattle();
+	}
+	
+	public void TestFortressMonasteryCombat(int attackerSize) {
+
+		Fleet defender = new Fleet(1), attacker = new Fleet(attackerSize);
+
+		defender.Push(new Ship(ShipData.MARINE_FORTRESS_MONASTERY));
+
+		for (int i = 0; i < attackerSize; ++i) {
+			attacker.Push(new Ship(ShipData.MARINE_BATTLE_BARGE));
 		}
 
 		FleetCombat fc = new FleetCombat(attacker, defender);

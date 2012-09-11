@@ -16,7 +16,7 @@ public class Ship {
 	public Ship(ShipData data) {
 		this.inv = new Inventory();
 		this.data = data;
-		weapons = new ShipWeapon[data.weapons];
+		weapons = data.getWeapons(data);
 		
 		this.currentShields = data.shields;
 		this.currentHull = data.hull;
