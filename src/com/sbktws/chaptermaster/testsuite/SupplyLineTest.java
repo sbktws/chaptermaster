@@ -18,8 +18,8 @@ public class SupplyLineTest {
 		Inventory inv = new Inventory();
 		spinv[0] = new Inventory();
 		spinv[1] = new Inventory();
-		sps[0] = new SupplyPoint(2);
-		sps[1] = new SupplyPoint(2);
+		sps[0] = new SupplyPoint(2, null);
+		sps[1] = new SupplyPoint(2, null);
 
 		spinv[0].setCargo(Resource.MANPOWER, 200);
 		spinv[0].setCargo(Resource.VEHICLES, 200);

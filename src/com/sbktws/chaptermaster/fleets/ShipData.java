@@ -1,5 +1,10 @@
 package com.sbktws.chaptermaster.fleets;
 
+/**
+ * Contains all the data required for a simulated ship.
+ * 
+ * @author James
+ */
 public enum ShipData {
 
 	/* Space Marine Ships */
@@ -69,14 +74,27 @@ public enum ShipData {
 			0,
 			3);
 
+	/**
+	 * A human-readable name for the ship class.
+	 */
 	public final String name;
 
+	/**
+	 * Values for the hull and shield maximums, the armour save, and the number of weapon mounts.
+	 */
 	public final byte hull, armour, shields, weapons;
+	/**
+	 * Carrying capacity.
+	 */
 	public final short marines, vehicles;
 
+	/**
+	 * To-hit roll, in n+ form.
+	 */
 	public final byte accuracy;
 
-	ShipData(String name, int hull, int armour, int shields, int weapons, int marines, int vehicles, int accuracy) {
+	ShipData(String name, int hull, int armour, int shields, int weapons, int marines,
+			int vehicles, int accuracy) {
 		this.name = name;
 
 		this.hull = (byte) hull;
@@ -90,6 +108,13 @@ public enum ShipData {
 		this.accuracy = (byte) accuracy;
 	}
 
+	/**
+	 * Get the standard armament for a ship.
+	 * 
+	 * @param sd
+	 *            The ship type.
+	 * @return A list of weapons for that type.
+	 */
 	public ShipWeapon[] getWeapons(ShipData sd) {
 		ShipWeapon[] w = new ShipWeapon[sd.weapons];
 
@@ -122,7 +147,7 @@ public enum ShipData {
 			break;
 		default:
 			break;
-			
+
 		}
 		return w;
 	}

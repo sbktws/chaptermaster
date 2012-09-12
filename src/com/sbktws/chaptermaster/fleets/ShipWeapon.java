@@ -1,5 +1,9 @@
 package com.sbktws.chaptermaster.fleets;
 
+/**
+ * Contains data about various weaponry.
+ * @author James
+ */
 public enum ShipWeapon {
 	
 	/* Generic Imperial weaponry */
